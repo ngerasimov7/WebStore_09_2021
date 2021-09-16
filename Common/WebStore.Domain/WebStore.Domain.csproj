@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>WebStore.Domain</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
