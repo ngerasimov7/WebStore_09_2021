@@ -32,13 +32,6 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connection_string = new SqlConnectionStringBuilder(Configuration.GetConnectionString("MSSQL"))
-            //{
-            //    UserID = "qwe",
-            //    Password = "asd"
-            //};
-            //var connection_string_with_password = connection_string.ConnectionString;
-
             var database_name = Configuration["Database"];
 
             switch (database_name)
