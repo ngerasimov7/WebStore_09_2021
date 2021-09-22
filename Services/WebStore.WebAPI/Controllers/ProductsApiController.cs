@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Domain;
+using WebStore.Domain.DTO;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.WebAPI.Controllers
@@ -20,7 +21,7 @@ namespace WebStore.WebAPI.Controllers
         public IActionResult GetSections()
         {
             var sections = _ProductData.GetSections();
-            return Ok(sections);
+            return Ok(sections.ToDTO());
         }
 
         [HttpGet("sections/{id:int}")]
@@ -29,14 +30,14 @@ namespace WebStore.WebAPI.Controllers
             var section = _ProductData.GetSection(id);
             if (section is null)
                 return NotFound(id);
-            return Ok(section);
+            return Ok(section.ToDTO());
         }
 
         [HttpGet("brands")]
         public IActionResult GetBrands()
         {
             var brands = _ProductData.GetBrands();
-            return Ok(brands);
+            return Ok(brands.ToDTO());
         }
 
         [HttpGet("brands/{id:int}")]
@@ -45,14 +46,14 @@ namespace WebStore.WebAPI.Controllers
             var brand = _ProductData.GetSection(id);
             if (brand is null)
                 return NotFound(id);
-            return Ok(brand);
+            return Ok(brand.ToDTO());
         }
 
         [HttpPost]
         public IActionResult GetProducts(ProductFilter Filter = null)
         {
             var products = _ProductData.GetProducts(Filter ?? new());
-            return Ok(products);
+            return Ok(products.ToDTO());
         }
 
         [HttpGet("{id:int}")]
@@ -61,7 +62,7 @@ namespace WebStore.WebAPI.Controllers
             var product = _ProductData.GetProduct(id);
             if (product is null)
                 return NotFound(id);
-            return Ok(product);
+            return Ok(product.ToDTO());
         }
     }
 }
