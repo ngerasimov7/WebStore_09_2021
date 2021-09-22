@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebStore.Interfaces.TestAPI;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using WebStore.WebAPI.Clients.Base;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
+using WebStore.WebAPI.Clients.Base;
 
 namespace WebStore.WebAPI.Clients.Employees
 {
-    public class EmployeesClient : BaseClient, IEmloyeesData
+    public class EmployeesClient : BaseClient, IEmployeesData
     {
         public EmployeesClient(HttpClient Client) : base(Client, "api/employees") { }
-        public IEnumerable<Employee> GetAll() 
+
+        public IEnumerable<Employee> GetAll()
         {
             var result = Get<IEnumerable<Employee>>(Address);
             return result;
@@ -27,7 +23,7 @@ namespace WebStore.WebAPI.Clients.Employees
             return result;
         }
 
-        public int Add(Employee employee) 
+        public int Add(Employee employee)
         {
             var response = Post(Address, employee);
             var id = response.Content.ReadFromJsonAsync<int>().Result;
@@ -46,6 +42,5 @@ namespace WebStore.WebAPI.Clients.Employees
             return success;
             //return response.Content.ReadFromJsonAsync<bool>().Result;
         }
-
     }
 }

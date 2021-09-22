@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 
@@ -168,13 +164,13 @@ namespace WebStore.Services.Data
 
                     await _UserManager.AddToRoleAsync(admin, Role.Administrators);
 
-                    _Logger.LogInformation("Пользователь {0} наделён ролью {1}", 
+                    _Logger.LogInformation("Пользователь {0} наделён ролью {1}",
                         User.Administrator, Role.Administrators);
                 }
                 else
                 {
                     var errors = creation_result.Errors.Select(e => e.Description).ToArray();
-                    _Logger.LogError("Учётная запись администратора не создана по причине: {0}", 
+                    _Logger.LogError("Учётная запись администратора не создана по причине: {0}",
                         string.Join(",", errors));
 
                     throw new InvalidOperationException($"Ошибка при создании пользователя {User.Administrator}:{string.Join(",", errors)}");
@@ -187,7 +183,7 @@ namespace WebStore.Services.Data
 
         private void AddEmployees()
         {
-            if(_db.Employees.Any()) return;
+            if (_db.Employees.Any()) return;
 
             TestData.Employees.ForEach(e => e.Id = 0);
             _db.Employees.AddRange(TestData.Employees);

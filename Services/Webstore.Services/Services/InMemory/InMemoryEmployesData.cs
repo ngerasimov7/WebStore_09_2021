@@ -4,7 +4,7 @@ using System.Linq;
 
 using Microsoft.Extensions.Logging;
 
-using WebStore.Data;
+using WebStore.Services.Data;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
