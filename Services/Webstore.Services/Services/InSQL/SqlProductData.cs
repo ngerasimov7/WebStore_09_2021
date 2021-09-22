@@ -38,7 +38,7 @@ namespace WebStore.Services.InSQL
             return query;
         }
 
-        public Product GetProductById(int Id) => _db.Products
+        public Product GetProduct(int Id) => _db.Products
            .Include(p => p.Brand)
            .Include(p => p.Section)
            .SingleOrDefault(p => p.Id == Id);
