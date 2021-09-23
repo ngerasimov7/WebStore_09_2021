@@ -5,7 +5,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.WebAPI.Controllers
 {
-    [Route("api/[products]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductsApiController : ControllerBase
     {
