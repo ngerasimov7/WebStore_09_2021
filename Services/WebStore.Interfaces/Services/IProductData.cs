@@ -16,6 +16,6 @@ namespace WebStore.Interfaces.Services
 
         IEnumerable<Product> GetProducts(ProductFilter Filter = null);
 
-        Product GetProduct(int Id);
+        Product GetProductById(int Id);
     }
 }

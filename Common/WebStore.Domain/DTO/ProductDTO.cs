@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Entities.Orders;
 
 namespace WebStore.Domain.DTO
 {
@@ -13,9 +9,13 @@ namespace WebStore.Domain.DTO
         public int Id { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
+
         public decimal Price { get; set; }
+
         public string ImageUrl { get; set; }
+
         public BrandDTO Brand { get; set; }
+
         public SectionDTO Section { get; set; }
     }
 
@@ -24,6 +24,7 @@ namespace WebStore.Domain.DTO
         public int Id { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
+
         public int? ParentId { get; set; }
     }
 
@@ -44,6 +45,7 @@ namespace WebStore.Domain.DTO
                 Name = brand.Name,
                 Order = brand.Order,
             };
+
         public static Brand FromDTO(this BrandDTO brand) => brand is null
             ? null
             : new Brand
@@ -52,9 +54,9 @@ namespace WebStore.Domain.DTO
                 Name = brand.Name,
                 Order = brand.Order,
             };
+
         public static IEnumerable<BrandDTO> ToDTO(this IEnumerable<Brand> brands) => brands.Select(ToDTO);
         public static IEnumerable<Brand> FromDTO(this IEnumerable<BrandDTO> brands) => brands.Select(FromDTO);
-
     }
 
     public static class SectionDTOMapper
@@ -67,6 +69,7 @@ namespace WebStore.Domain.DTO
                 Name = section.Name,
                 Order = section.Order,
             };
+
         public static Section FromDTO(this SectionDTO section) => section is null
             ? null
             : new Section
@@ -74,11 +77,10 @@ namespace WebStore.Domain.DTO
                 Id = section.Id,
                 Name = section.Name,
                 Order = section.Order,
-                ParentId = section.ParentId,
             };
+
         public static IEnumerable<SectionDTO> ToDTO(this IEnumerable<Section> sections) => sections.Select(ToDTO);
         public static IEnumerable<Section> FromDTO(this IEnumerable<SectionDTO> sections) => sections.Select(FromDTO);
-
     }
 
     public static class ProductDTOMapper
@@ -94,8 +96,8 @@ namespace WebStore.Domain.DTO
                 ImageUrl = Product.ImageUrl,
                 Brand = Product.Brand.ToDTO(),
                 Section = Product.Section.ToDTO(),
-
             };
+
         public static Product FromDTO(this ProductDTO Product) => Product is null
             ? null
             : new Product
@@ -108,8 +110,8 @@ namespace WebStore.Domain.DTO
                 Brand = Product.Brand.FromDTO(),
                 Section = Product.Section.FromDTO(),
             };
+
         public static IEnumerable<ProductDTO> ToDTO(this IEnumerable<Product> Products) => Products.Select(ToDTO);
         public static IEnumerable<Product> FromDTO(this IEnumerable<ProductDTO> Products) => Products.Select(FromDTO);
-
     }
 }

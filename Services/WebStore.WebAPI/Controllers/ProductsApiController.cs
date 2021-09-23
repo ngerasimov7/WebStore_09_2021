@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
 using WebStore.Domain.DTO;
 using WebStore.Interfaces.Services;
@@ -59,7 +54,7 @@ namespace WebStore.WebAPI.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetProduct(int id)
         {
-            var product = _ProductData.GetProduct(id);
+            var product = _ProductData.GetProductById(id);
             if (product is null)
                 return NotFound(id);
             return Ok(product.ToDTO());
