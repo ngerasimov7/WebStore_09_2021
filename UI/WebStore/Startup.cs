@@ -1,26 +1,24 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using WebStore.DAL.Context;
-using WebStore.Services.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.MiddleWare;
-using WebStore.Services.InCookies;
-using WebStore.Services.InSQL;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
-using WebStore.WebAPI.Clients;
-using WebStore.WebAPI.Clients.Values;
+using WebStore.Services.Data;
+using WebStore.Services.InCookies;
 using WebStore.WebAPI.Clients.Employees;
+using WebStore.WebAPI.Clients.Orders;
 using WebStore.WebAPI.Clients.Products;
+using WebStore.WebAPI.Clients.Values;
 
 namespace WebStore
 {
@@ -88,15 +86,13 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddScoped<IEmployeesData, SqlEmployeesData>();
             services.AddScoped<ICartService, InCookiesCartService>();
-            //services.AddScoped<IProductData, SqlProductData>();
-            services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddHttpClient("WebStoreAPI", client => client.BaseAddress = new Uri(Configuration["WebAPI"]))
                .AddTypedClient<IValuesService, ValuesClient>()
                .AddTypedClient<IEmployeesData, EmployeesClient>()
                .AddTypedClient<IProductData, ProductsClient>()
+               .AddTypedClient<IOrderService, OrdersClient>()
                 ;
 
             services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllersConvention()))
