@@ -12,7 +12,7 @@ namespace WebStore.WebAPI.Clients.Products
 {
     public class ProductsClient : BaseClient, IProductData
     {
-        public ProductsClient(HttpClient Client) : base(Client, "api/products") { }
+        public ProductsClient(HttpClient Client) : base(Client, WebAPIAddresses.Products) { }
 
         public IEnumerable<Section> GetSections()
         {
