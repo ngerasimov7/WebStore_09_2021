@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -10,9 +9,7 @@ namespace WebStore.WebAPI.Clients.Base
     public abstract class BaseClient : IDisposable
     {
         protected HttpClient Http { get; }
-
         protected string Address { get; }
-
         protected BaseClient(HttpClient Client, string Address)
         {
             Http = Client;
@@ -23,11 +20,9 @@ namespace WebStore.WebAPI.Clients.Base
         protected async Task<T> GetAsync<T>(string url, CancellationToken Cancel = default)
         {
             var response = await Http.GetAsync(url, Cancel).ConfigureAwait(false);
-            if (response.StatusCode == HttpStatusCode.NoContent) return default;
             return await response
                .EnsureSuccessStatusCode()
-               .Content
-               .ReadFromJsonAsync<T>(cancellationToken: Cancel)
+               .Content.ReadFromJsonAsync<T>(cancellationToken: Cancel)
                .ConfigureAwait(false);
         }
 
@@ -57,25 +52,15 @@ namespace WebStore.WebAPI.Clients.Base
             Dispose(true);
             //GC.SuppressFinalize(this);
         }
-
         //~BaseClient()
         //{
         //    Dispose(false);
         //}
-
         private bool _Disposed;
         protected virtual void Dispose(bool disposing)
         {
             if (_Disposed) return;
             _Disposed = true;
-
             if (disposing)
             {
                 // должны освободить управляемые ресурсы
-                //Http.Dispose(); - вызывать нельзя!!! Не мы его создали.
-            }
-
-            // освобождаем управляемые ресурсы
-        }
-    }
-}
