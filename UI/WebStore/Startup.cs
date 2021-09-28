@@ -11,7 +11,7 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Data;
-using WebStore.Services.Services.InCookies;
+using WebStore.Services.InCookies;
 using WebStore.WebAPI.Clients.Employees;
 using WebStore.WebAPI.Clients.Identity;
 using WebStore.WebAPI.Clients.Orders;
