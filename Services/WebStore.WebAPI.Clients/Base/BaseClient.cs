@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace WebStore.WebAPI.Clients.Base
 {
     public abstract class BaseClient : IDisposable
@@ -15,14 +15,15 @@ namespace WebStore.WebAPI.Clients.Base
             Http = Client;
             this.Address = Address;
         }
-
         protected T Get<T>(string url) => GetAsync<T>(url).Result;
         protected async Task<T> GetAsync<T>(string url, CancellationToken Cancel = default)
         {
             var response = await Http.GetAsync(url, Cancel).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NoContent) return default;
             return await response
                .EnsureSuccessStatusCode()
-               .Content.ReadFromJsonAsync<T>(cancellationToken: Cancel)
+               .Content
+               .ReadFromJsonAsync<T>(cancellationToken: Cancel)
                .ConfigureAwait(false);
         }
 
@@ -32,21 +33,18 @@ namespace WebStore.WebAPI.Clients.Base
             var response = await Http.PostAsJsonAsync(url, item, Cancel).ConfigureAwait(false);
             return response.EnsureSuccessStatusCode();
         }
-
         protected HttpResponseMessage Put<T>(string url, T item) => PutAsync(url, item).Result;
         protected async Task<HttpResponseMessage> PutAsync<T>(string url, T item, CancellationToken Cancel = default)
         {
             var response = await Http.PutAsJsonAsync(url, item, Cancel).ConfigureAwait(false);
             return response.EnsureSuccessStatusCode();
         }
-
         protected HttpResponseMessage Delete(string url) => DeleteAsync(url).Result;
         protected async Task<HttpResponseMessage> DeleteAsync(string url, CancellationToken Cancel = default)
         {
             var response = await Http.DeleteAsync(url, Cancel).ConfigureAwait(false);
             return response;
         }
-
         public void Dispose()
         {
             Dispose(true);
@@ -64,3 +62,9 @@ namespace WebStore.WebAPI.Clients.Base
             if (disposing)
             {
                 // должны освободить управляемые ресурсы
+                //Http.Dispose(); - вызывать нельзя!!! Не мы его создали.
+            }
+            // освобождаем управляемые ресурсы
+        }
+    }
+}

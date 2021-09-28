@@ -19,6 +19,7 @@ using WebStore.WebAPI.Clients.Employees;
 using WebStore.WebAPI.Clients.Orders;
 using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
+using WebStore.WebAPI.Clients.Identity;
 
 namespace WebStore
 {
@@ -51,8 +52,20 @@ namespace WebStore
             services.AddTransient<WebStoreDBInitializer>();
 
             services.AddIdentity<User, Role>(/*opt => { }*/)
-               .AddEntityFrameworkStores<WebStoreDB>()
+               //.AddEntityFrameworkStores<WebStoreDB>()
                .AddDefaultTokenProviders();
+
+            services.AddHttpClient("WebStoreAPIIdentity", client => client.BaseAddress = new(Configuration["WebAPI"]))
+                .AddTypedClient<IUserStore<User>, UsersClient>()
+                .AddTypedClient<IUserRoleStore<User>, UsersClient>()
+                .AddTypedClient<IUserPasswordStore<User>, UsersClient>()
+                .AddTypedClient<IUserEmailStore<User>, UsersClient>()
+                .AddTypedClient<IUserPhoneNumberStore<User>, UsersClient>()
+                .AddTypedClient<IUserTwoFactorStore<User>, UsersClient>()
+                .AddTypedClient<IUserLoginStore<User>, UsersClient>()
+                .AddTypedClient<IRoleStore<Role>, RolesClient>()
+
+            ;
 
             services.Configure<IdentityOptions>(opt =>
             {
