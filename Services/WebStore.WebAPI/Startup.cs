@@ -14,6 +14,8 @@ using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
 using WebStore.Services.InCookies;
 using WebStore.Services.InSQL;
+using WebStore.Services.Services.InSQL;
+
 namespace WebStore.WebAPI
 {
     public class Startup
