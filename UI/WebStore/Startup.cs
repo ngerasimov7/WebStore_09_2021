@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
+using WebStore.Logger;
 using WebStore.Services.Data;
 using WebStore.Services.InCookies;
 using WebStore.WebAPI.Clients.Employees;
@@ -28,7 +30,6 @@ namespace WebStore
             services.AddIdentity<User, Role>()
                .AddIdentityWebStoreWebAPIClients()
                .AddDefaultTokenProviders();
-
             //services.AddIdentityWebStoreWebAPIClients();
             //services.AddHttpClient("WebStoreAPIIdentity", client => client.BaseAddress = new(Configuration["WebAPI"]))
             //   .AddTypedClient<IUserStore<User>, UsersClient>()
@@ -40,7 +41,6 @@ namespace WebStore
             //   .AddTypedClient<IUserClaimStore<User>, UsersClient>()
             //   .AddTypedClient<IUserLoginStore<User>, UsersClient>()
             //   .AddTypedClient<IRoleStore<Role>, RolesClient>();
-
             services.Configure<IdentityOptions>(opt =>
             {
 #if DEBUG
@@ -77,8 +77,11 @@ namespace WebStore
             services.AddControllersWithViews()
                .AddRazorRuntimeCompilation();
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
