@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging.Console;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Json;
-
 namespace WebStore
 {
     public class Program
@@ -32,6 +31,7 @@ namespace WebStore
                         )
                    .WriteTo.RollingFile($@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log")
                    .WriteTo.File(new JsonFormatter(",", true), $@".\Logs\WebStore[{DateTime.Now:yyyy-MM-ddTHH-mm-ss}].log.json")
+                   .WriteTo.Seq("http://localhost:5341")
                 )
             ;
     }
