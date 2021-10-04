@@ -13,7 +13,8 @@ using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Logger;
 using WebStore.Services.Data;
-using WebStore.Services.InCookies;
+using WebStore.Services.Services;
+using WebStore.Services.Services.InCookies;
 using WebStore.WebAPI.Clients.Employees;
 using WebStore.WebAPI.Clients.Identity;
 using WebStore.WebAPI.Clients.Orders;
@@ -67,7 +68,11 @@ namespace WebStore
                 opt.AccessDeniedPath = "/Account/AccessDenied";
                 opt.SlidingExpiration = true;
             });
-            services.AddScoped<ICartService, InCookiesCartService>();
+
+            //services.AddScoped<ICartService, InCookiesCartService>();
+            services.AddScoped<ICartStore, InCookiesCartStore>();
+            services.AddScoped<ICartService, CartService>();
+
             services.AddHttpClient("WebStoreAPI", client => client.BaseAddress = new Uri(Configuration["WebAPI"]))
                .AddTypedClient<IValuesService, ValuesClient>()
                .AddTypedClient<IEmployeesData, EmployeesClient>()
@@ -77,11 +82,9 @@ namespace WebStore
             services.AddControllersWithViews()
                .AddRazorRuntimeCompilation();
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
             log.AddLog4Net();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
