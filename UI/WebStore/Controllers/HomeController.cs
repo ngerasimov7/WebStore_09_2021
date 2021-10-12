@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
-using WebStore.Domain.ViewModels;
 
 namespace WebStore.Controllers
 {
@@ -17,7 +15,7 @@ namespace WebStore.Controllers
 
         public IActionResult Index([FromServices] IProductData ProductData)
         {
-            ViewBag.Products = ProductData.GetProducts().Take(9).ToView();
+            ViewBag.Products = ProductData.GetProducts(new() { Page = 1, PageSize = 9 }).Products.ToView();
             return View();
         }
 
