@@ -3,7 +3,7 @@
 @model WebStore.Domain.ViewModels.LoginViewModel
 @inject ILogger<AccountController> Logger
 @{ ViewData["Title"] = "Вход в систему";
-                Logger.LogInformation("Сообщение из представления"); }
+    Logger.LogInformation("Сообщение из представления"); }
 
 <section id="form">
     <!--form-->
@@ -34,3 +34,8 @@
         </div>
     </div>
 </section><!--/form-->
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
