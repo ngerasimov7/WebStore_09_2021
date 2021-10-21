@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "UI\WebStore\Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{4B3C4DB8-5824-438E-A1B9-5FD7B31C4DA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webstore.Services", "Services\Webstore.Services\Webstore.Services.csproj", "{4BD3BC52-584B-4ED1-A80F-F5A2AC92F96C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Services", "Services\Webstore.Services\WebStore.Services.csproj", "{4BD3BC52-584B-4ED1-A80F-F5A2AC92F96C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.WebAPI", "Services\WebStore.WebAPI\WebStore.WebAPI.csproj", "{6A700488-22DF-47FF-B498-D9704A83638B}"
 EndProject
